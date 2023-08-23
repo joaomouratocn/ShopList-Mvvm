@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types">
+        <item>Unit</item>
+        <item>Box</item>
+        <item>Liters</item>
+        <item>Pounds</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Select category</item>
+        <item>Food</item>
+        <item>Drinks</item>
+        <item>Meats and cold cuts</item>
+        <item>Hygiene and Cleaning</item>
+        <item>HortFruit</item>
+        <item>Others</item>
+        <item>Bakery</item>
+        <item>Spices</item>
+    </string-array>
+</resources>

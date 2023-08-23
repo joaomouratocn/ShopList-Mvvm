@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_add_product"
+        android:icon="@drawable/baseline_add_24"
+        android:title="@string/str_add_product"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/item_rename_shop_list"
+        android:title="@string/str_rename_shop_list"/>
+
+    <item
+        android:id="@+id/item_delete_shop_list"
+        android:title="@string/str_delete_shop_list"/>
+</menu>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types">
+        <item>Unidade(s)</item>
+        <item>Caixa</item>
+        <item>Litros</item>
+        <item>Kg</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Selecione categoria</item>
+        <item>Alimentos</item>
+        <item>Bebidas</item>
+        <item>Carnes e frios</item>
+        <item>Higiene e Limpeza</item>
+        <item>HortFruit</item>
+        <item>Outros</item>
+        <item>Padaria</item>
+        <item>Temperos</item>
+    </string-array>
+</resources>

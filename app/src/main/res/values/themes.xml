@@ -1,0 +1,49 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.ShopList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorPrimaryVariant">@color/blue_primary_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/orange_secondary</item>
+        <item name="colorSecondaryVariant">@color/orange_secondary_variant</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSurface">@color/black</item>
+
+        <!-- background colors -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnBackground">@color/white</item>
+
+        <!-- error colors -->
+        <item name="colorError">@color/redError</item>
+        <item name="colorOnError">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Base_ToolbarStyle">
+        <item name="android:background">?colorPrimary</item>
+        <item name="android:theme">@style/Base_ToolbarTheme</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="Base_ToolbarTheme">
+        <!-- Cor usada para o titulo da toolbar e seus override -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- Cor usada para botão voltar e icones de menu -->
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="buy_act_bottom_layout">
+        <item name="android:background">@drawable/bg_bottom_layout_buy_shop_list</item>
+    </style>
+
+    <style name="customTextView">
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

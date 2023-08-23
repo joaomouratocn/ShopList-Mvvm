@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragmentAllShopList">
+
+    <fragment
+        android:id="@+id/fragmentAllShopList"
+        android:name="br.com.devjmcn.shoplist.view.allShopListView.FragmentAllShopList"
+        android:label="@string/str_all_shop_list"
+        tools:layout="@layout/fragment_all_shop_list" >
+        <action
+            android:id="@+id/action_fragmentAllShopList_to_editShopListFragment"
+            app:destination="@id/editShopListFragment" />
+        <action
+            android:id="@+id/action_fragmentAllShopList_to_fragmentBuyShopList"
+            app:destination="@id/fragmentBuyShopList" />
+    </fragment>
+    <fragment
+        android:id="@+id/editShopListFragment"
+        android:name="br.com.devjmcn.shoplist.view.editShopListView.FragmentEditShopList"
+        android:label="@string/str_edit_shop_list"
+        tools:layout="@layout/fragment_edit_shop_list" >
+        <argument
+            android:name="shopId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_editShopListFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="br.com.devjmcn.shoplist.view.productsView.FragmentProduct"
+        android:label="@string/str_products"
+        tools:layout="@layout/fragment_products" >
+        <argument
+            android:name="shopId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentBuyShopList"
+        android:name="br.com.devjmcn.shoplist.view.buyShopListView.FragmentBuyShopList"
+        android:label="@string/str_buy_shop_list"
+        tools:layout="@layout/fragment_buy_shop_list" >
+        <argument
+            android:name="shopId"
+            app:argType="long"/>
+        <action
+            android:id="@+id/action_fragmentBuyShopList_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
+</navigation>

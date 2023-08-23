@@ -1,0 +1,36 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.ShopList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_primary_variant</item>
+        <item name="colorPrimaryVariant">@color/blue_primary</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/orange_secondary</item>
+        <item name="colorSecondaryVariant">@color/orange_secondary</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/blue_primary_variant</item>
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="Base_ToolbarStyle">
+        <item name="android:background">@color/blue_primary</item>
+        <item name="android:theme">@style/Base_ToolbarTheme</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+    </style>
+
+    <style name="Base_ToolbarTheme">
+        <!-- Cor usada para o titulo da toolbar e seus override -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- Cor usada para botão voltar e icones de menu -->
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="buy_act_bottom_layout">
+        <item name="android:background">@drawable/bg_bottom_layout_buy_shop_list</item>
+    </style>
+</resources>

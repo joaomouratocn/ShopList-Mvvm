@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- light colors-->
+    <color name="blue_primary">#FF2196F3</color>
+    <color name="blue_primary_variant">#FF1976D2</color>
+    <color name="orange_secondary">#FFF39422</color>
+    <color name="orange_secondary_variant">#FFEF6C00</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="redError">#FFB00020</color>
+
+</resources>

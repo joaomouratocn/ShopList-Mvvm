@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">ShopList</string>
+    <string name="str_image_list">Image list</string>
+    <string name="str_more_options">More options</string>
+    <string name="str_no_list">NO SHOP LIST</string>
+    <string name="str_amount_check" translatable="false">%1$d/%2$d</string>
+    <string name="str_all_shop_list">All shop list</string>
+    <string name="str_edit">Edit</string>
+    <string name="str_delete">Delete</string>
+    <string name="str_really_want_delete">Really want delete the %1$s</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_save">Save</string>
+    <string name="str_insert_name_of_shop_list">Insert name shop list</string>
+    <string name="str_new_shop_list">New shop list</string>
+    <string name="str_invalid_field">Invalid field</string>
+    <string name="str_edit_shop_list">Edit Shop list</string>
+    <string name="str_rename_shop_list">Rename shop list</string>
+    <string name="str_delete_shop_list">Delete shop list</string>
+    <string name="str_amount">Amount</string>
+    <string name="str_description">Description</string>
+    <string name="str_amount_item">"Amount: %1$d</string>
+    <string name="str_price_item">"Price: %1$s</string>
+    <string name="str_type_item">"Type: %1$s</string>
+    <string name="str_description_item">"Description: %1$s</string>
+    <string name="str_add_product">Add product</string>
+    <string name="str_products">Products</string>
+    <string name="str_image_product_check">Image product check</string>
+    <string name="str_image_options_insert">Image options insert</string>
+    <string name="str_search_product">Search product</string>
+    <string name="str_new_product">New product</string>
+    <string name="str_edit_product">Edit product</string>
+    <string name="str_done">Done</string>
+    <string name="str_no_items">NO ITEMS</string>
+    <string name="str_product_not_found">Product not found</string>
+    <string name="str_product_name">Product name</string>
+    <string name="str_disable_sum_values">Disable sum values</string>
+    <string name="str_partial">"Partial: "</string>
+    <string name="str_image_check_item">Image check item</string>
+    <string name="str_empty_list">Empty List</string>
+    <string name="str_buy_shop_list">Buy Shop List</string>
+    <string name="str_price">Price</string>
+    <string name="str_image_delete_item">Image delete item</string>
+    <string name="str_image_edit_item">Image Edit Item</string>
+    <string name="str_enable_sum_values">Enable sum values</string>
+    <string name="str_message">Message</string>
+    <string name="str_by_default">By default, the application requests the values of the items to perform the sum. If you want to disable it, use the menu on this screen!</string>
+    <string name="str_ok" translatable="false">OK</string>
+    <string name="str_maximum_allowed_value">maximum allowed value is: 9.999.99</string>
+</resources>
