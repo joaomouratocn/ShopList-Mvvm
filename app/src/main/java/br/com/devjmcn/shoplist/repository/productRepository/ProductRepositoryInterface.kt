@@ -8,7 +8,7 @@ interface ProductRepositoryInterface {
 
     suspend fun deleteProduct(productModel: ProductModel)
 
-    fun getAllProducts(): Flow<List<ProductModel>?>
+    fun getAllProducts(): Flow<List<ProductModel>>
 
-    fun getAllProductsByName(prodName:String): Flow<List<ProductModel>?>
+    fun getAllProductsByName(prodName:String): Flow<List<ProductModel>>
 }

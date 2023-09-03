@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListModel
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListWithItemsModel
 import br.com.devjmcn.shoplist.domain.usecases.allShopListViewUseCase.AllShopListViewUseCaseInterface
-import br.com.devjmcn.shoplist.util.ResponseStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,8 +12,8 @@ import kotlinx.coroutines.launch
 class ViewModelAllShopList(private val allShopListViewUseCaseInterface: AllShopListViewUseCaseInterface)
     : ViewModel() {
 
-    private val _allShopList:MutableStateFlow<ResponseStatus<List<ShopListWithItemsModel>?>> = MutableStateFlow(ResponseStatus.Loading)
-    val allShopList:StateFlow<ResponseStatus<List<ShopListWithItemsModel>?>> = _allShopList
+    private val _allShopList:MutableStateFlow<List<ShopListWithItemsModel>?> = MutableStateFlow(null)
+    val allShopList:StateFlow<List<ShopListWithItemsModel>?> = _allShopList
 
     init {
         viewModelScope.launch {

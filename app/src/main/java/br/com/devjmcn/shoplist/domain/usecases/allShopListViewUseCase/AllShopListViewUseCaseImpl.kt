@@ -3,8 +3,10 @@ package br.com.devjmcn.shoplist.domain.usecases.allShopListViewUseCase
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListModel
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListWithItemsModel
 import br.com.devjmcn.shoplist.repository.shopListRepository.ShopListRepositoryInterface
-import br.com.devjmcn.shoplist.util.ResponseStatus
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class AllShopListViewUseCaseImpl(
@@ -23,13 +25,10 @@ class AllShopListViewUseCaseImpl(
         shopListRepositoryInterface.deleteShopList(shopListModel)
     }
 
-    override fun getAllShopList(): Flow<ResponseStatus<List<ShopListWithItemsModel>?>> {
-        return shopListRepositoryInterface.getAllShopList().map { allShopListWithItems ->
-            if (allShopListWithItems.isNullOrEmpty()) {
-                ResponseStatus.EmptyData
-            } else {
-                ResponseStatus.ShowData(allShopListWithItems)
+    override suspend fun getAllShopList(): Flow<List<ShopListWithItemsModel>> {
+        return shopListRepositoryInterface.getAllShopList().catch { emit(emptyList()) }
+            .map{shopListWithItemsModel ->
+                    shopListWithItemsModel
             }
-        }
     }
 }

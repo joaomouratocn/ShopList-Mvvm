@@ -16,8 +16,6 @@ import br.com.devjmcn.shoplist.databinding.DialogNewShopListBinding
 import br.com.devjmcn.shoplist.databinding.FragmentAllShopListBinding
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListModel
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListWithItemsModel
-import br.com.devjmcn.shoplist.util.ResponseStatus
-import br.com.devjmcn.shoplist.util.ResponseStatus.*
 import br.com.devjmcn.shoplist.util.extensions.createDialog
 import br.com.devjmcn.shoplist.util.extensions.upFirstChar
 import kotlinx.coroutines.launch
@@ -75,20 +73,20 @@ class FragmentAllShopList : Fragment() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModelAllShopList.allShopList.collect { responseStatus ->
-                    when (responseStatus) {
-                        is Loading -> {
+                viewModelAllShopList.allShopList.collect {listShopListWithItems ->
+                    when (listShopListWithItems) {
+                        null -> {
                             showViews(progressLoadingVisibility = VISIBLE)
                         }
 
-                        is EmptyData -> {
+                        emptyList<ShopListWithItemsModel>() -> {
                             showViews(textNoListVisibility = VISIBLE)
                             adapterAllShopList.submitList(emptyList())
                         }
 
-                        is ShowData<List<ShopListWithItemsModel>?> -> {
+                        else -> {
                             showViews()
-                            adapterAllShopList.submitList(responseStatus.data)
+                            adapterAllShopList.submitList(listShopListWithItems)
                         }
                     }
                 }

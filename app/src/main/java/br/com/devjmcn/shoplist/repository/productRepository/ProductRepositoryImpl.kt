@@ -5,6 +5,7 @@ import br.com.devjmcn.shoplist.domain.mapper.toProductModel
 import br.com.devjmcn.shoplist.domain.model.product.ProductModel
 import br.com.devjmcn.shoplist.repository.room.dao.ProductDao
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
 class ProductRepositoryImpl(
@@ -18,15 +19,19 @@ class ProductRepositoryImpl(
         productDao.deleteProduct(productModel.toProductEntity())
     }
 
-    override fun getAllProducts(): Flow<List<ProductModel>?> {
-        return productDao.getAllProducts().map { listProductEntity ->
-            listProductEntity?.map { it.toProductModel() }
+    override fun getAllProducts(): Flow<List<ProductModel>> {
+        return productDao.getAllProducts().catch {
+            emit(emptyList())
+        }.map { listProductEntity ->
+            listProductEntity.map { it.toProductModel() }
         }
     }
 
-    override fun getAllProductsByName(prodName: String): Flow<List<ProductModel>?> {
-        return productDao.getAllProductsByName(prodName).map { listProductEntity ->
-            listProductEntity?.map { it.toProductModel() }
+    override fun getAllProductsByName(prodName: String): Flow<List<ProductModel>> {
+        return productDao.getAllProductsByName(prodName).catch {
+            emit(emptyList())
+        }.map { listProductEntity ->
+            listProductEntity.map { it.toProductModel() }
         }
     }
 }

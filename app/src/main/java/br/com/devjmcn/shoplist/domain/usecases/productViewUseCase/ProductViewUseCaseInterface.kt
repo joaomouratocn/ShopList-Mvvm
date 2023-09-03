@@ -2,13 +2,12 @@ package br.com.devjmcn.shoplist.domain.usecases.productViewUseCase
 
 import br.com.devjmcn.shoplist.domain.model.item.ItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.product.ProductModel
-import br.com.devjmcn.shoplist.util.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 
 interface ProductViewUseCaseInterface {
-    fun getAllProduct(): Flow<ResponseStatus<List<ProductModel>?>>
+    fun getAllProduct(): Flow<List<ProductModel>>
 
-    fun getProductByName(name: String?): Flow<ResponseStatus<List<ProductModel>?>>
+    fun getProductByName(name: String?): Flow<List<ProductModel>>
 
     fun getItemsList(shopId: Long): Flow<List<Long>?>
 

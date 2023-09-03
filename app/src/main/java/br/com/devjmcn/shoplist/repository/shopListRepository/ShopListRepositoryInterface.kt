@@ -11,7 +11,7 @@ interface ShopListRepositoryInterface {
 
     suspend fun deleteShopList(shopListModel: ShopListModel)
 
-    fun getAllShopList(): Flow<List<ShopListWithItemsModel>?>
+    fun getAllShopList(): Flow<List<ShopListWithItemsModel>>
 
     fun getShopListById(shopId:Long): Flow<ShopListWithItemsModel?>
 }

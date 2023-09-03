@@ -26,7 +26,6 @@ import br.com.devjmcn.shoplist.domain.mapper.setCategoryMap
 import br.com.devjmcn.shoplist.domain.mapper.toItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.item.ItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.product.ProductModel
-import br.com.devjmcn.shoplist.util.ResponseStatus
 import br.com.devjmcn.shoplist.util.extensions.createDialog
 import br.com.devjmcn.shoplist.util.extensions.upFirstChar
 import kotlinx.coroutines.launch
@@ -120,22 +119,22 @@ class FragmentProduct : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    productViewModel.allProducts.collect { responseStatus ->
-                        when (responseStatus) {
-                            is ResponseStatus.Loading -> {
+                    productViewModel.allProducts.collect {listProduct ->
+                        when (listProduct) {
+                            null -> {
                                 showViews(progressLoadingVisibility = VISIBLE)
                             }
 
-                            is ResponseStatus.EmptyData -> {
+                            emptyList<ProductModel>() -> {
                                 showViews(txvNoProductVisibility = VISIBLE)
-                                addAdapterProductAdd.submitList(emptyList())
+                                addAdapterProductAdd.submitList(listProduct)
                             }
 
-                            is ResponseStatus.ShowData<List<ProductModel>?> -> {
+                            else -> {
                                 showViews()
-                                editProductAdapter.submitList(responseStatus.data)
-                                productItemDecoration.loadCategory(responseStatus.data.setCategoryMap())
-                                addAdapterProductAdd.submitList(responseStatus.data)
+                                editProductAdapter.submitList(listProduct)
+                                productItemDecoration.loadCategory(listProduct.setCategoryMap())
+                                addAdapterProductAdd.submitList(listProduct)
                             }
                         }
                     }

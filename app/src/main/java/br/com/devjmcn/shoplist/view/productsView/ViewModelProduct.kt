@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import br.com.devjmcn.shoplist.domain.model.item.ItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.product.ProductModel
 import br.com.devjmcn.shoplist.domain.usecases.productViewUseCase.ProductViewUseCaseInterface
-import br.com.devjmcn.shoplist.util.ResponseStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,8 +16,8 @@ class ViewModelProduct(
     private val _editProductMode:MutableStateFlow<Boolean> = MutableStateFlow(false)
     val editProductMode:StateFlow<Boolean> = _editProductMode
 
-    private val _allProducts: MutableStateFlow<ResponseStatus<List<ProductModel>?>> = MutableStateFlow(ResponseStatus.Loading)
-    val allProducts: StateFlow<ResponseStatus<List<ProductModel>?>> = _allProducts
+    private val _allProducts: MutableStateFlow<List<ProductModel>?> = MutableStateFlow(null)
+    val allProducts: StateFlow<List<ProductModel>?> = _allProducts
 
     private val _listAlreadyProducts:MutableStateFlow<List<Long>?> = MutableStateFlow(null)
     val listAlreadyProducts:StateFlow<List<Long>?> = _listAlreadyProducts

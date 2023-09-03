@@ -17,9 +17,9 @@ interface ProductDao {
     suspend fun deleteProduct(productEntity: ProductEntity)
 
     @Query("SELECT * FROM ProductEntity ORDER BY prodCategoryIndex ASC, prodName ASC")
-    fun getAllProducts():Flow<List<ProductEntity>?>
+    fun getAllProducts():Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM ProductEntity WHERE prodName LIKE :prodName " +
             "ORDER BY prodCategoryIndex ASC, prodName ASC")
-    fun getAllProductsByName(prodName:String):Flow<List<ProductEntity>?>
+    fun getAllProductsByName(prodName:String):Flow<List<ProductEntity>>
 }

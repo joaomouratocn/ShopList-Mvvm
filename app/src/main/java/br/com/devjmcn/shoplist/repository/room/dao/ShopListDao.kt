@@ -23,9 +23,9 @@ interface ShopListDao {
 
     @Transaction
     @Query("SELECT * FROM ShopListEntity ORDER BY shopId DESC")
-    fun getAllShopList():Flow<List<ShopListWihItemsNested>?>
+    fun getAllShopList():Flow<List<ShopListWihItemsNested>>
 
     @Transaction
     @Query("SELECT * FROM ShopListEntity WHERE shopId = :shopId")
-    fun getShopListById(shopId:Long):Flow<ShopListWihItemsNested?>
+    fun getShopListById(shopId:Long):Flow<ShopListWihItemsNested>
 }

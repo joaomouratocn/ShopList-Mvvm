@@ -4,8 +4,8 @@ import br.com.devjmcn.shoplist.domain.model.item.ItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.product.ProductModel
 import br.com.devjmcn.shoplist.repository.itemShopListRepository.ItemShopListRepositoryInterface
 import br.com.devjmcn.shoplist.repository.productRepository.ProductRepositoryInterface
-import br.com.devjmcn.shoplist.util.ResponseStatus
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
 class ProductViewUseCaseImpl(
@@ -13,24 +13,20 @@ class ProductViewUseCaseImpl(
     private val itemShopListRepositoryInterface: ItemShopListRepositoryInterface
 )
     : ProductViewUseCaseInterface {
-    override fun getAllProduct(): Flow<ResponseStatus<List<ProductModel>?>> {
-        return productRepositoryInterface.getAllProducts().map { listProductModel ->
-            if (listProductModel.isNullOrEmpty()){
-                ResponseStatus.EmptyData
-            }else{
-                ResponseStatus.ShowData(listProductModel)
-            }
+    override fun getAllProduct(): Flow<List<ProductModel>> {
+        return productRepositoryInterface.getAllProducts().catch {
+            emit(emptyList())
+        }.map { listProductModel ->
+            listProductModel
         }
     }
 
-    override fun getProductByName(name:String?): Flow<ResponseStatus<List<ProductModel>?>> {
+    override fun getProductByName(name:String?): Flow<List<ProductModel>> {
         val replacedName = "%$name%"
-        return productRepositoryInterface.getAllProductsByName(replacedName).map {listProductModel ->
-            if (listProductModel.isNullOrEmpty()){
-                ResponseStatus.EmptyData
-            }else{
-                ResponseStatus.ShowData(listProductModel)
-            }
+        return productRepositoryInterface.getAllProductsByName(replacedName).catch {
+            emit(emptyList())
+        }.map {listProductModel ->
+            listProductModel
         }
     }
 

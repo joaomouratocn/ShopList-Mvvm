@@ -23,9 +23,9 @@ class ShopListRepositoryImpl(
         shopListDao.deleteShopList(shopListModel.toShopListEntity())
     }
 
-    override fun getAllShopList(): Flow<List<ShopListWithItemsModel>?> {
+    override fun getAllShopList(): Flow<List<ShopListWithItemsModel>> {
         return shopListDao.getAllShopList().map {listShopListWithItemNested ->
-            listShopListWithItemNested?.map {
+            listShopListWithItemNested.map {
                 it.toShopListWithItemsModel()
             }
         }
@@ -33,7 +33,7 @@ class ShopListRepositoryImpl(
 
     override fun getShopListById(shopId: Long): Flow<ShopListWithItemsModel?> {
         return shopListDao.getShopListById(shopId).map { shopListWithItemNested ->
-            shopListWithItemNested?.toShopListWithItemsModel()
+            shopListWithItemNested.toShopListWithItemsModel()
         }
     }
 }
