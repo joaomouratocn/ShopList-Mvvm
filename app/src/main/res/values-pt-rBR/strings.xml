@@ -3,7 +3,7 @@
     <string name="app_name">Lista de Compras</string>
     <string name="str_image_list">Imagem de Lista</string>
     <string name="str_more_options">Mais opções</string>
-    <string name="str_no_list">SEM LISTA</string>
+    <string name="str_create_list">Criar Lista</string>
     <string name="str_all_shop_list">Todas as listas</string>
     <string name="str_edit">Editar</string>
     <string name="str_delete">Deletar</string>

@@ -9,6 +9,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="redError">#FFB00020</color>
+    <color name="red_error">#FFB00020</color>
+    <color name="bg_dialog_dark_mode">#202020</color>
+
+    <color name="bg_edt_text_light">#E0E0E0</color>
+    <color name="bg_edt_text_dark">#808080</color>
 
 </resources>

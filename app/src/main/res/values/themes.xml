@@ -18,7 +18,7 @@
         <item name="colorOnBackground">@color/white</item>
 
         <!-- error colors -->
-        <item name="colorError">@color/redError</item>
+        <item name="colorError">@color/red_error</item>
         <item name="colorOnError">@color/white</item>
 
         <!-- Status bar color. -->
@@ -45,5 +45,13 @@
 
     <style name="customTextView">
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="custom_bg_dialog" parent="Theme.ShopList">
+        <item name="android:background">@drawable/bg_dialog_light_themes</item>
+    </style>
+
+    <style name="bg_edt_text">
+        <item name="android:background">@drawable/bg_edt_text_light</item>
     </style>
 </resources>

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ShopList"
         tools:targetApi="31">
         <activity
-            android:name="br.com.devjmcn.shoplist.view.MainActivity"
+            android:name="br.com.devjmcn.shoplist.presenter.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.buyShopListView.FragmentBuyShopList">
+    tools:context=".presenter.buyShopListView.FragmentBuyShopList">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_buy_products"
@@ -18,18 +18,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
-        android:id="@+id/txv_empty_list"
+
+    <LinearLayout
+        android:id="@+id/linear_click"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/str_empty_list"
-        android:textSize="32sp"
-        android:textColor="@android:color/darker_gray"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:id="@+id/img_no_items"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/add_items"
+            android:alpha="0.5"
+            android:contentDescription="@string/str_image_no_items" />
+
+        <TextView
+            android:id="@+id/txv_empty_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_empty_list"
+            android:textSize="32sp"
+            android:textColor="@android:color/darker_gray"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/const_layout_bottom"

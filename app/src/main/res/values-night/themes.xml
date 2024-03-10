@@ -33,4 +33,13 @@
     <style name="buy_act_bottom_layout">
         <item name="android:background">@drawable/bg_bottom_layout_buy_shop_list</item>
     </style>
+
+    <style name="custom_bg_dialog" parent="Theme.ShopList">
+        <item name="android:background">@drawable/bg_dialog_dark_themes</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="bg_edt_text">
+        <item name="android:background">@color/bg_edt_text_dark</item>
+    </style>
 </resources>

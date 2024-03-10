@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
-    android:layout_margin="16dp">
+    style="@style/custom_bg_dialog">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_prod_name"
@@ -27,7 +27,7 @@
     <Spinner
         android:id="@+id/spn_categories"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:entries="@array/categories"
         app:layout_constraintStart_toStartOf="@id/til_prod_name"

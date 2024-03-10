@@ -2,7 +2,7 @@
     <string name="app_name">ShopList</string>
     <string name="str_image_list">Image list</string>
     <string name="str_more_options">More options</string>
-    <string name="str_no_list">NO SHOP LIST</string>
+    <string name="str_create_list">Crate List</string>
     <string name="str_amount_check" translatable="false">%1$d/%2$d</string>
     <string name="str_all_shop_list">All shop list</string>
     <string name="str_edit">Edit</string>
@@ -46,4 +46,7 @@
     <string name="str_by_default">By default, the application requests the values of the items to perform the sum. If you want to disable it, use the menu on this screen!</string>
     <string name="str_ok" translatable="false">OK</string>
     <string name="str_maximum_allowed_value">maximum allowed value is: 9.999.99</string>
+    <string name="str_image_no_list">Image no list</string>
+    <string name="str_image_no_items">Image no items</string>
+    <string name="str_zero_value">0.00</string>
 </resources>

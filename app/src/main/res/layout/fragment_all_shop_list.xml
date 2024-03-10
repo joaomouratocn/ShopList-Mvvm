@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.allShopListView.FragmentAllShopList">
+    tools:context=".presenter.allShopListView.FragmentAllShopList">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_all_shop_list"
@@ -18,18 +18,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-        android:id="@+id/txv_no_list"
+    <LinearLayout
+        android:id="@+id/linear_click"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/str_no_list"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:id="@+id/img_no_list"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:alpha="0.5"
+            android:src="@drawable/no_list_icon"
+            android:contentDescription="@string/str_image_no_list" />
+
+        <TextView
+            android:id="@+id/txv_no_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/str_create_list"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="32sp"/>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pbr_loading"

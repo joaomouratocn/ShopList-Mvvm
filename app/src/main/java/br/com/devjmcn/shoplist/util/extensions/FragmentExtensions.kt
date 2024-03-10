@@ -3,6 +3,7 @@ package br.com.devjmcn.shoplist.util.extensions
 import android.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import br.com.devjmcn.shoplist.R
 
 fun Fragment.createDialog(
     viewBinding: ViewBinding? = null,

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragmentAllShopList"
-        android:name="br.com.devjmcn.shoplist.view.allShopListView.FragmentAllShopList"
+        android:name="br.com.devjmcn.shoplist.presenter.allShopListView.FragmentAllShopList"
         android:label="@string/str_all_shop_list"
         tools:layout="@layout/fragment_all_shop_list" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/editShopListFragment"
-        android:name="br.com.devjmcn.shoplist.view.editShopListView.FragmentEditShopList"
+        android:name="br.com.devjmcn.shoplist.presenter.editShopListView.FragmentEditShopList"
         android:label="@string/str_edit_shop_list"
         tools:layout="@layout/fragment_edit_shop_list" >
         <argument
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/productsFragment"
-        android:name="br.com.devjmcn.shoplist.view.productsView.FragmentProduct"
+        android:name="br.com.devjmcn.shoplist.presenter.productsView.FragmentProduct"
         android:label="@string/str_products"
         tools:layout="@layout/fragment_products" >
         <argument
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentBuyShopList"
-        android:name="br.com.devjmcn.shoplist.view.buyShopListView.FragmentBuyShopList"
+        android:name="br.com.devjmcn.shoplist.presenter.buyShopListView.FragmentBuyShopList"
         android:label="@string/str_buy_shop_list"
         tools:layout="@layout/fragment_buy_shop_list" >
         <argument
