@@ -49,4 +49,9 @@
     <string name="str_image_no_list">Image no list</string>
     <string name="str_image_no_items">Image no items</string>
     <string name="str_zero_value">0.00</string>
+    <string name="str_confirm">Confirm</string>
+    <string name="str_alter_product">Alter Product</string>
+    <string name="str_field_amount_invalid">Field amount invalid</string>
+    <string name="str_item_price_field_invalid">Item Price Field Invalid</string>
+    <string name="str_product_name_invalid">Product name invalid</string>
 </resources>

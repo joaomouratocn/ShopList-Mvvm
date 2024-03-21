@@ -11,6 +11,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -21,6 +22,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.devjmcn.shoplist.R
 import br.com.devjmcn.shoplist.databinding.DialogAddPriceBinding
+import br.com.devjmcn.shoplist.databinding.DialogConfirmDeleteBinding
+import br.com.devjmcn.shoplist.databinding.DialogNotifySumValuesBinding
 import br.com.devjmcn.shoplist.databinding.FragmentBuyShopListBinding
 import br.com.devjmcn.shoplist.domain.model.item.ItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListWithItemsModel
@@ -180,9 +183,10 @@ class FragmentBuyShopList : Fragment() {
                         if (preferences) {
                             binding.txvPartialText.visibility = VISIBLE
                             binding.txvPartialValue.visibility = VISIBLE
-                            
-                            val sumValues = shopListWithItemsModel.listItems.filter { item -> item.isOk }
-                                .sumOf { it.amount.toBigDecimal() * it.price }
+
+                            val sumValues =
+                                shopListWithItemsModel.listItems.filter { item -> item.isOk }
+                                    .sumOf { it.amount.toBigDecimal() * it.price }
 
                             binding.txvPartialValue.text = numberFormat.format(sumValues)
                         } else {
@@ -208,10 +212,10 @@ class FragmentBuyShopList : Fragment() {
     }
 
     private fun showDialogLoadPrice(itemSelected: ItemShopListModel) {
-        val dialogBinding = DialogAddPriceBinding.inflate(layoutInflater)
-        val dialog = createDialog(dialogBinding)
+        val dialogView = DialogAddPriceBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
 
-        with(dialogBinding) {
+        with(dialogView) {
             txvItemName.text = itemSelected.prodName
             edtAmountItem.setText(itemSelected.amount.toString())
             edtPriceItem.addTextChangedListener(TextWatcherNumberFormat(editText = edtPriceItem))
@@ -222,9 +226,11 @@ class FragmentBuyShopList : Fragment() {
 
             btnSave.setOnClickListener {
                 if (viewModelBuyShopList.isEmpty(edtAmountItem.text.toString())) {
-                    tilAmountItem.error = getString(R.string.str_invalid_field)
+                    Toast.makeText(requireContext(),
+                        getString(R.string.str_field_amount_invalid), Toast.LENGTH_SHORT).show()
                 } else if (viewModelBuyShopList.isEmpty(edtPriceItem.text.toString())) {
-                    tilPriceItem.error = getString(R.string.str_invalid_field)
+                    Toast.makeText(requireContext(),
+                        getString(R.string.str_item_price_field_invalid), Toast.LENGTH_SHORT).show()
                 } else {
                     val amount = edtAmountItem.text.toString().toInt()
                     val price = edtPriceItem.text.toString().toBigDecimalFormat()
@@ -243,16 +249,19 @@ class FragmentBuyShopList : Fragment() {
     }
 
     private fun showDialogDeleteItem(itemSelected: ItemShopListModel) {
-        val dialog = createDialog(
-            title = getString(R.string.str_delete), message = getString(
-                R.string.str_really_want_delete,
-                itemSelected.prodName
-            ),
-            positiveButtonText = getString(R.string.str_delete),
-            negativeButtonText = getString(R.string.str_cancel)
-        ) {
-            lifecycleScope.launch {
-                viewModelBuyShopList.deleteItem(itemSelected)
+        val dialogView = DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
+
+        with(dialogView) {
+            txtTitle.text = getString(R.string.str_delete)
+            txtTitle.text = getString(R.string.str_really_want_delete, itemSelected.prodName)
+
+            btnCancel.setOnClickListener { dialog.dismiss() }
+            btnConfirm.setOnClickListener {
+                lifecycleScope.launch {
+                    viewModelBuyShopList.deleteItem(itemSelected)
+                }
+                dialog.dismiss()
             }
         }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -260,11 +269,13 @@ class FragmentBuyShopList : Fragment() {
     }
 
     private suspend fun showDialogNotifySumValues() {
-        val dialog = createDialog(
-            title = getString(R.string.str_message),
-            message = getString(R.string.str_by_default),
-            positiveButtonText = getString(R.string.str_ok),
-        )
+        val dialogView = DialogNotifySumValuesBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
+        with(dialogView) {
+            txtTitle.text = getString(R.string.str_message)
+            txtMsgSumValues.text = getString(R.string.str_by_default)
+            btnOk.setOnClickListener { dialog.dismiss() }
+        }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
         viewModelBuyShopList.setPreferenceData(true)

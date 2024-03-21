@@ -26,7 +26,6 @@
         android:autofillHints="name"
         android:layout_marginTop="8dp"
         android:hint="@string/str_insert_name_of_shop_list"
-        style="@style/bg_edt_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txv_title"
         app:layout_constraintEnd_toEndOf="parent"/>

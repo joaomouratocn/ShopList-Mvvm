@@ -28,11 +28,8 @@ class ViewModelEditShopList(
         }
     }
 
-    suspend fun deleteShopList() {
-        selectedShopListWithItems.value?.let {
-            val shopList = ShopListModel(it.shopId, it.shopName, it.shopDate)
-            useCaseInterface.deleteShopList(shopList)
-        }
+    suspend fun deleteShopList(shopListModel: ShopListModel) {
+        useCaseInterface.deleteShopList(shopListModel)
     }
 
     fun isNameValid(newShopName: String): Boolean {

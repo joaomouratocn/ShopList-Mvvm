@@ -56,9 +56,9 @@ class RepositoryImpl(
         }   
     }
 
-    override fun getShopListById(shopId: Long): Flow<ShopListWithItemsModel> {
+    override fun getShopListById(shopId: Long): Flow<ShopListWithItemsModel?> {
         return shopListDao.getShopListById(shopId).map { shopListWithItemNested ->
-            shopListWithItemNested?.toShopListWithItemsModel() ?: throw NullPointerException()
+            shopListWithItemNested?.toShopListWithItemsModel()
         }
     }
 

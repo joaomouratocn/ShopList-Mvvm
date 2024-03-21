@@ -16,14 +16,14 @@
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintBottom_toTopOf="@+id/til_amount_item"
+        app:layout_constraintBottom_toTopOf="@+id/txt_prod_amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem/random" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_amount_item"
+        android:id="@+id/txt_prod_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -51,9 +51,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/str_price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/til_amount_item"
-        app:layout_constraintTop_toTopOf="@id/til_amount_item"
-        app:layout_constraintBottom_toBottomOf="@id/til_amount_item">
+        app:layout_constraintStart_toEndOf="@id/txt_prod_amount"
+        app:layout_constraintTop_toTopOf="@id/txt_prod_amount"
+        app:layout_constraintBottom_toBottomOf="@id/txt_prod_amount">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_price_item"

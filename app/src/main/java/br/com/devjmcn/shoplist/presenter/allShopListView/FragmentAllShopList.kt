@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import br.com.devjmcn.shoplist.R
+import br.com.devjmcn.shoplist.databinding.DialogConfirmDeleteBinding
 import br.com.devjmcn.shoplist.databinding.DialogNewShopListBinding
 import br.com.devjmcn.shoplist.databinding.FragmentAllShopListBinding
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListModel
@@ -77,7 +78,7 @@ class FragmentAllShopList : Fragment() {
         }
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModelAllShopList.allShopList.collect { listShopListWithItems ->
                     when (listShopListWithItems) {
                         null -> {
@@ -106,15 +107,17 @@ class FragmentAllShopList : Fragment() {
     }
 
     private fun showConfirmDeleteDialog(shopListModel: ShopListModel) {
-        val dialog = createDialog(
-            title = getString(R.string.str_delete), message = getString(
-                R.string.str_really_want_delete,
-                shopListModel.shopName
-            ),
-            positiveButtonText = getString(R.string.str_delete),
-            negativeButtonText = getString(R.string.str_cancel)
-        ) {
-            lifecycleScope.launch { viewModelAllShopList.deleteShopList(shopListModel = shopListModel) }
+        val dialogView = DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
+        with(dialogView){
+            txtTitle.text = getString(R.string.str_delete)
+            txtMsgConfirmDelete.text = getString(R.string.str_really_want_delete, shopListModel.shopName)
+
+            btnCancel.setOnClickListener { dialog.dismiss() }
+            btnConfirm.setOnClickListener {
+                lifecycleScope.launch { viewModelAllShopList.deleteShopList(shopListModel = shopListModel) }
+                dialog.dismiss()
+            }
         }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()

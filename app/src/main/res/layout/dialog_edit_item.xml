@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,28 +20,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem/random" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_amount_item"
+    <EditText
+        android:id="@+id/edt_amount_item"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
+        android:selectAllOnFocus="true"
+        android:textAlignment="center"
         android:hint="@string/str_amount"
+        android:maxLength="3"
         app:layout_constraintEnd_toStartOf="@id/spn_type"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txv_prod_name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_amount_item"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="number"
-            android:background="@android:color/transparent"
-            android:hint="@string/str_amount"
-            android:maxLength="4"
-            android:textAlignment="center"
-            android:selectAllOnFocus="true"
-            tools:text="1000" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/txv_prod_name"
+        android:autofillHints="no"
+        android:inputType="number">
+    </EditText>
 
     <Spinner
         android:id="@+id/spn_type"
@@ -49,30 +43,26 @@
         android:layout_marginStart="16dp"
         android:drawSelectorOnTop="true"
         android:entries="@array/types"
-        app:layout_constraintBottom_toBottomOf="@id/til_amount_item"
+        app:layout_constraintBottom_toBottomOf="@id/edt_amount_item"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/til_amount_item"
-        app:layout_constraintTop_toTopOf="@id/til_amount_item" />
+        app:layout_constraintStart_toEndOf="@id/edt_amount_item"
+        app:layout_constraintTop_toTopOf="@id/edt_amount_item" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_description"
+    <EditText
+        android:id="@+id/edt_description"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
+        android:padding="5dp"
         android:hint="@string/str_description"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@id/btn_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_amount_item">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_description"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:maxLines="1"
-            android:inputType="text"
-            android:background="@android:color/transparent" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/edt_amount_item"
+        android:autofillHints="no"
+        android:inputType="text">
+    </EditText>
 
     <Button
         android:id="@+id/btn_save"
@@ -83,7 +73,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/str_save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_description" />
+        app:layout_constraintTop_toBottomOf="@id/edt_description" />
 
     <Button
         android:id="@+id/btn_cancel"
@@ -95,6 +85,5 @@
         app:layout_constraintBottom_toBottomOf="@id/btn_save"
         app:layout_constraintEnd_toStartOf="@id/btn_save"
         app:layout_constraintTop_toTopOf="@id/btn_save" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

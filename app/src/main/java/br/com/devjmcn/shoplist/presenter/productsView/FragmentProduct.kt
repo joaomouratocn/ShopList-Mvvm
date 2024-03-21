@@ -12,6 +12,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
@@ -21,11 +22,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import br.com.devjmcn.shoplist.R
+import br.com.devjmcn.shoplist.data.setCategoryMap
+import br.com.devjmcn.shoplist.data.toItemShopListModel
+import br.com.devjmcn.shoplist.databinding.DialogConfirmDeleteBinding
 import br.com.devjmcn.shoplist.databinding.DialogEditItemBinding
 import br.com.devjmcn.shoplist.databinding.DialogNewProductBinding
 import br.com.devjmcn.shoplist.databinding.FragmentProductsBinding
-import br.com.devjmcn.shoplist.data.setCategoryMap
-import br.com.devjmcn.shoplist.data.toItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.item.ItemShopListModel
 import br.com.devjmcn.shoplist.domain.model.product.ProductModel
 import br.com.devjmcn.shoplist.util.extensions.createDialog
@@ -68,9 +70,7 @@ class FragmentProduct : Fragment() {
     private val editProductAdapter by lazy {
         AdapterProductEdit(object : AdapterProductEdit.OnEditProductClickEvent {
             override fun deleteProduct(selectedProduct: ProductModel) {
-                lifecycleScope.launch {
-                    productViewModel.deleteProduct(selectedProduct)
-                }
+                showDialogConfirmDeleteProduct(productModel = selectedProduct)
             }
 
             override fun editProduct(selectedProduct: ProductModel) {
@@ -97,6 +97,24 @@ class FragmentProduct : Fragment() {
         configureFlowData()
     }
 
+    private fun showDialogConfirmDeleteProduct(productModel: ProductModel) {
+        val dialogView = DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
+        with(dialogView){
+            txtTitle.text = getString(R.string.str_delete)
+            txtMsgConfirmDelete.text = getString(R.string.str_really_want_delete, productModel.prodName)
+            btnCancel.setOnClickListener { dialog.dismiss() }
+            btnConfirm.setOnClickListener {
+                lifecycleScope.launch {
+                    productViewModel.deleteProduct(productModel)
+                }
+                dialog.dismiss()
+            }
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
     private fun invalidMenu() {
         (requireActivity() as AppCompatActivity).invalidateOptionsMenu()
     }
@@ -121,7 +139,7 @@ class FragmentProduct : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    productViewModel.allProducts.collect {listProduct ->
+                    productViewModel.allProducts.collect { listProduct ->
                         when (listProduct) {
                             null -> {
                                 showViews(progressLoadingVisibility = VISIBLE)
@@ -242,10 +260,10 @@ class FragmentProduct : Fragment() {
     }
 
     private fun showDialogEditItem(itemShopListModel: ItemShopListModel) {
-        val bindingDialog = DialogEditItemBinding.inflate(layoutInflater)
-        val dialog = createDialog(bindingDialog)
+        val dialogView = DialogEditItemBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
 
-        with(bindingDialog) {
+        with(dialogView) {
             txvProdName.text = itemShopListModel.prodName
             edtAmountItem.setText(itemShopListModel.amount.toString())
             spnType.setSelection(itemShopListModel.typeIndex)
@@ -255,7 +273,11 @@ class FragmentProduct : Fragment() {
 
             btnSave.setOnClickListener {
                 if (productViewModel.isInvalidAmount(edtAmountItem.text.toString()))
-                    tilAmountItem.error = getString(R.string.str_invalid_field)
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.str_field_amount_invalid),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 else {
                     val editedItem = itemShopListModel.copy(
                         amount = edtAmountItem.text.toString().toInt(),
@@ -274,11 +296,14 @@ class FragmentProduct : Fragment() {
     }
 
     private fun showDialogNewProduct(productModel: ProductModel?) {
-        val dialogBinding = DialogNewProductBinding.inflate(layoutInflater)
-        val dialog = createDialog(dialogBinding)
-        with(dialogBinding) {
+        val dialogView = DialogNewProductBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
+        with(dialogView) {
+            txvTitle.text = getString(R.string.str_new_product)
+
             productModel?.let {
-                edtNameProduct.setText(productModel.prodName)
+                txvTitle.text = getString(R.string.str_alter_product)
+                edtProdName.setText(productModel.prodName)
 
                 spnCategories.setSelection(productModel.prodCategoryIndex)
             }
@@ -286,18 +311,21 @@ class FragmentProduct : Fragment() {
             btnCancel.setOnClickListener { dialog.dismiss() }
 
             btnSave.setOnClickListener {
-                val validText = productViewModel.isNameValid(edtNameProduct.text.toString())
+                val validText = productViewModel.isNameValid(edtProdName.text.toString())
                 if (validText) {
-                    tilProdName.error = getString(R.string.str_invalid_field)
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.str_product_name_invalid), Toast.LENGTH_SHORT
+                    ).show()
                 } else if (spnCategories.selectedItemPosition == 0) {
                     (spnCategories.selectedView as TextView).error =
                         getString(R.string.str_invalid_field)
                 } else {
                     val editedProduct = productModel?.copy(
-                        prodName = edtNameProduct.text.toString(),
+                        prodName = edtProdName.text.toString(),
                         prodCategoryIndex = spnCategories.selectedItemPosition
                     ) ?: ProductModel(
-                        prodName = edtNameProduct.text.toString().upFirstChar(),
+                        prodName = edtProdName.text.toString().upFirstChar(),
                         prodCategoryIndex = spnCategories.selectedItemPosition
                     )
                     lifecycleScope.launch {

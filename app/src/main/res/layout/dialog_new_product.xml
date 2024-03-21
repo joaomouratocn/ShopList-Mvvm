@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     style="@style/custom_bg_dialog">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_prod_name"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/txv_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="New product / Edit Product"/>
+
+    <EditText
+        android:id="@+id/edt_prod_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="8dp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:autofillHints="name"
+        android:layout_marginTop="8dp"
         android:hint="@string/str_product_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_name_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:inputType="text"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/txv_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Spinner
         android:id="@+id/spn_categories"
@@ -30,9 +36,9 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:entries="@array/categories"
-        app:layout_constraintStart_toStartOf="@id/til_prod_name"
-        app:layout_constraintEnd_toEndOf="@id/til_prod_name"
-        app:layout_constraintTop_toBottomOf="@id/til_prod_name"/>
+        app:layout_constraintStart_toStartOf="@id/edt_prod_name"
+        app:layout_constraintEnd_toEndOf="@id/edt_prod_name"
+        app:layout_constraintTop_toBottomOf="@id/edt_prod_name"/>
 
     <Button
         android:id="@+id/btn_save"
@@ -41,7 +47,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/str_save"
         app:layout_constraintTop_toBottomOf="@id/spn_categories"
-        app:layout_constraintEnd_toEndOf="@id/til_prod_name"
+        app:layout_constraintEnd_toEndOf="@id/edt_prod_name"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/Widget.MaterialComponents.Button.TextButton"/>
 

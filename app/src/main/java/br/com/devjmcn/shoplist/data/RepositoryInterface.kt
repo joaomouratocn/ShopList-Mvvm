@@ -26,7 +26,7 @@ interface RepositoryInterface {
 
     fun getAllShopList(): Flow<List<ShopListWithItemsModel>>
 
-    fun getShopListById(shopId:Long): Flow<ShopListWithItemsModel>
+    fun getShopListById(shopId:Long): Flow<ShopListWithItemsModel?>
 
     //====================  ITEMSHOPLIST REPOSITORY INTERFACE  ====================//
     suspend fun saveItemShopList(itemShopListModel: ItemShopListModel)

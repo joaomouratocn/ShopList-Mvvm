@@ -23,10 +23,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.devjmcn.shoplist.R
+import br.com.devjmcn.shoplist.databinding.DialogConfirmDeleteBinding
 import br.com.devjmcn.shoplist.databinding.DialogEditItemBinding
 import br.com.devjmcn.shoplist.databinding.DialogNewShopListBinding
 import br.com.devjmcn.shoplist.databinding.FragmentEditShopListBinding
 import br.com.devjmcn.shoplist.domain.model.item.ItemShopListModel
+import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListModel
 import br.com.devjmcn.shoplist.util.extensions.createDialog
 import br.com.devjmcn.shoplist.util.extensions.upFirstChar
 import kotlinx.coroutines.launch
@@ -80,7 +82,7 @@ class FragmentEditShopList : Fragment() {
         }
 
         binding.fabAddItem.setOnClickListener { goToAddProduct() }
-        binding.linearClick.setOnClickListener{goToAddProduct()}
+        binding.linearClick.setOnClickListener { goToAddProduct() }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -100,7 +102,7 @@ class FragmentEditShopList : Fragment() {
         }
     }
 
-    private fun updateView(visibility:Int = GONE) {
+    private fun updateView(visibility: Int = GONE) {
         binding.txvNoItems.visibility = visibility
         binding.imgNoItems.visibility = visibility
     }
@@ -119,7 +121,14 @@ class FragmentEditShopList : Fragment() {
                     }
 
                     R.id.item_delete_shop_list -> {
-                        showDeleteListDialog()
+                        viewModelEditShopList.selectedShopListWithItems.value?.let {shopListWithItemsModel ->
+                            val shopListModel = ShopListModel(
+                                shopId = shopListWithItemsModel.shopId,
+                                shopName = shopListWithItemsModel.shopName,
+                                shopDate = shopListWithItemsModel.shopDate
+                            )
+                            showDeleteListDialog(shopListModel)
+                        }
                         true
                     }
 
@@ -129,20 +138,29 @@ class FragmentEditShopList : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun showDeleteListDialog() =
-        createDialog(
-            title = getString(R.string.str_delete), message = getString(
-                R.string.str_really_want_delete,
-                viewModelEditShopList.selectedShopListWithItems.value?.shopName
-            ),
-            positiveButtonText = getString(R.string.str_delete),
-            negativeButtonText = getString(R.string.str_cancel)
-        ) {
-            lifecycleScope.launch {
-                viewModelEditShopList.deleteShopList()
-                navController.popBackStack()
+    private fun showDeleteListDialog(shopListModel: ShopListModel) {
+        val dialogView = DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
+
+        with(dialogView) {
+            txtTitle.text = getString(R.string.str_delete)
+            txtMsgConfirmDelete.text =
+                getString(
+                    R.string.str_really_want_delete,
+                    viewModelEditShopList.selectedShopListWithItems.value?.shopName
+                )
+            btnCancel.setOnClickListener { dialog.dismiss() }
+            btnConfirm.setOnClickListener {
+                lifecycleScope.launch {
+                    viewModelEditShopList.deleteShopList(shopListModel)
+                    navController.popBackStack()
+                }
+                dialog.dismiss()
             }
-        }.show()
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
 
     private fun goToAddProduct() {
         val directions = FragmentEditShopListDirections
@@ -151,16 +169,20 @@ class FragmentEditShopList : Fragment() {
     }
 
     private fun showDialogConfirmDeleteItem(itemShopListModel: ItemShopListModel) {
-        val dialog = createDialog(
-            title = getString(R.string.str_delete), message = getString(
-                R.string.str_really_want_delete,
-                itemShopListModel.prodName
-            ),
-            positiveButtonText = getString(R.string.str_delete),
-            negativeButtonText = getString(R.string.str_cancel)
-        ) {
-            lifecycleScope.launch {
-                viewModelEditShopList.deleteItem(itemShopListModel)
+        val dialogView = DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
+
+        with(dialogView) {
+            txtTitle.text = getString(R.string.str_delete)
+            txtMsgConfirmDelete.text =
+                getString(R.string.str_really_want_delete, itemShopListModel.prodName)
+
+            btnCancel.setOnClickListener { dialog.dismiss() }
+            btnConfirm.setOnClickListener {
+                lifecycleScope.launch {
+                    viewModelEditShopList.deleteItem(itemShopListModel)
+                }
+                dialog.dismiss()
             }
         }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -184,7 +206,11 @@ class FragmentEditShopList : Fragment() {
                         dialog.dismiss()
                     }
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.str_invalid_field), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.str_invalid_field),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -193,10 +219,10 @@ class FragmentEditShopList : Fragment() {
     }
 
     private fun showDialogEditItem(itemShopListModel: ItemShopListModel) {
-        val bindingDialog = DialogEditItemBinding.inflate(layoutInflater)
-        val dialog = createDialog(bindingDialog)
+        val dialogView = DialogEditItemBinding.inflate(layoutInflater)
+        val dialog = createDialog(dialogView)
 
-        with(bindingDialog) {
+        with(dialogView) {
             txvProdName.text = itemShopListModel.prodName
             edtAmountItem.setText(itemShopListModel.amount.toString())
             spnType.setSelection(itemShopListModel.typeIndex)
@@ -206,7 +232,7 @@ class FragmentEditShopList : Fragment() {
 
             btnSave.setOnClickListener {
                 if (viewModelEditShopList.isInvalidAmount(edtAmountItem.text.toString()))
-                    tilAmountItem.error = getString(R.string.str_invalid_field)
+                    Toast.makeText(requireContext(), getText(R.string.str_field_amount_invalid), Toast.LENGTH_SHORT).show()
                 else {
                     val editedItem = itemShopListModel.copy(
                         amount = edtAmountItem.text.toString().toInt(),
