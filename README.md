@@ -22,4 +22,4 @@ Ultilizados:
 * SHARED-PREFERENCES (salvar preferências do usuário)
 * KOIN (injeção de depêndecias)
 
-Aplicativo publicado na Google Play -> 
+Aplicativo publicado na Google Play -> https://play.google.com/store/apps/details?id=br.com.devjmcn.shoplist
