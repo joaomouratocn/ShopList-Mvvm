@@ -1,6 +1,11 @@
 # ShopList-Mvvm
 
-Uma recriação do applicativo de compras ultilizando boas praticas.
+Aplicativo de lista de compras.
+Funcionalidades:
+* Cadastro, alteração e exclusão de lista de compras
+* Cadastro, alteraçãe e exclusão de produtos
+* Cadastro, alteração e exclusão de categorias
+* Calculo de valores do itens da compra
 
 | Listas de comptas                   | Inserir valor do produto                         | Opçẽs para inserir produto                     |
 |------------------------------------|--------------------------------------------------|------------------------------------------------|
@@ -16,3 +21,5 @@ Ultilizados:
 * ROOM (salvar os dados localmente)
 * SHARED-PREFERENCES (salvar preferências do usuário)
 * KOIN (injeção de depêndecias)
+
+Aplicativo publicado na Google Play -> 
