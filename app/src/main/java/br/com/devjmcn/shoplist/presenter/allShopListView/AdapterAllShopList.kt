@@ -12,11 +12,12 @@ import br.com.devjmcn.shoplist.R
 import br.com.devjmcn.shoplist.databinding.RecycleAllShopListBinding
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListModel
 import br.com.devjmcn.shoplist.domain.model.shoplist.ShopListWithItemsModel
-import br.com.devjmcn.shoplist.presenter.allShopListView.AdapterAllShopList.*
-import java.text.DateFormat
+import br.com.devjmcn.shoplist.presenter.allShopListView.AdapterAllShopList.ViewHolderAllShopList
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class AdapterAllShopList(private val allShopListAdapterOnClickEvent:AllShopListAdapterOnClickEvent)
-    : ListAdapter<ShopListWithItemsModel, ViewHolderAllShopList>(AllShopListDiffUtil()) {
+class AdapterAllShopList(private val allShopListAdapterOnClickEvent: AllShopListAdapterOnClickEvent) :
+    ListAdapter<ShopListWithItemsModel, ViewHolderAllShopList>(AllShopListDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderAllShopList {
         return ViewHolderAllShopList.inflate(parent)
@@ -27,13 +28,14 @@ class AdapterAllShopList(private val allShopListAdapterOnClickEvent:AllShopListA
         holder.bind(selectedShopListWithItemsModel, allShopListAdapterOnClickEvent)
     }
 
-    class ViewHolderAllShopList(private val binding: RecycleAllShopListBinding)
-        :RecyclerView.ViewHolder(binding.root){
+    class ViewHolderAllShopList(private val binding: RecycleAllShopListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         companion object {
             fun inflate(parent: ViewGroup): ViewHolderAllShopList {
                 val binding = RecycleAllShopListBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false)
+                    LayoutInflater.from(parent.context), parent, false
+                )
                 return ViewHolderAllShopList(binding)
             }
         }
@@ -42,33 +44,37 @@ class AdapterAllShopList(private val allShopListAdapterOnClickEvent:AllShopListA
             selectedShopListWithItemsModel: ShopListWithItemsModel,
             allShopListAdapterOnClickEvent: AllShopListAdapterOnClickEvent
         ) {
+            val formatter = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR"))
             val amountItems = selectedShopListWithItemsModel.listItems.size
             val amountIsOk = selectedShopListWithItemsModel.listItems.filter { it.isOk }.size
 
             binding.apply {
                 txvNameList.text = selectedShopListWithItemsModel.shopName
-                txvDate.text = DateFormat.getDateInstance().format(selectedShopListWithItemsModel.shopDate)
-                txvAmountItems.text = root.context.getString(R.string.str_amount_check, amountItems, amountIsOk)
+                txvDate.text = formatter.format(selectedShopListWithItemsModel.shopDate)
+                txvAmountItems.text =
+                    root.context.getString(R.string.str_amount_check, amountItems, amountIsOk)
                 prbAmountItems.max = amountItems
                 prbAmountItems.progress = amountIsOk
-                if (amountItems == amountIsOk){
+                if (amountItems == amountIsOk) {
                     prbAmountItems.progressTintList = ColorStateList.valueOf(Color.GREEN)
-                }else{
+                } else {
                     prbAmountItems.progressTintList =
                         ColorStateList.valueOf(root.context.getColor(R.color.orange_secondary_variant))
                 }
 
                 imgMoreOpt.setOnClickListener {
                     val popupMenu = PopupMenu(binding.root.context, binding.imgMoreOpt)
-                    with(popupMenu){
+                    with(popupMenu) {
                         inflate(R.menu.menu_view_all_shop_list)
-                        setOnMenuItemClickListener {menuItem ->
-                            when(menuItem.itemId){
-                                R.id.item_edit_shop_list ->{
+                        setOnMenuItemClickListener { menuItem ->
+                            when (menuItem.itemId) {
+                                R.id.item_edit_shop_list -> {
                                     allShopListAdapterOnClickEvent.editShopList(
-                                        shopId = selectedShopListWithItemsModel.shopId)
+                                        shopId = selectedShopListWithItemsModel.shopId
+                                    )
                                     true
                                 }
+
                                 R.id.item_delete_shop_list -> {
                                     allShopListAdapterOnClickEvent.deleteShopList(
                                         shopListModel = ShopListModel(
@@ -79,6 +85,7 @@ class AdapterAllShopList(private val allShopListAdapterOnClickEvent:AllShopListA
                                     )
                                     true
                                 }
+
                                 else -> false
                             }
                         }
@@ -93,7 +100,7 @@ class AdapterAllShopList(private val allShopListAdapterOnClickEvent:AllShopListA
         }
     }
 
-    class AllShopListDiffUtil:DiffUtil.ItemCallback<ShopListWithItemsModel>(){
+    class AllShopListDiffUtil : DiffUtil.ItemCallback<ShopListWithItemsModel>() {
         override fun areItemsTheSame(
             oldItem: ShopListWithItemsModel,
             newItem: ShopListWithItemsModel
@@ -111,8 +118,8 @@ class AdapterAllShopList(private val allShopListAdapterOnClickEvent:AllShopListA
 
     }
 
-    interface AllShopListAdapterOnClickEvent{
-        fun editShopList(shopId:Long)
+    interface AllShopListAdapterOnClickEvent {
+        fun editShopList(shopId: Long)
         fun openBuyShopList(shopId: Long)
         fun deleteShopList(shopListModel: ShopListModel)
     }

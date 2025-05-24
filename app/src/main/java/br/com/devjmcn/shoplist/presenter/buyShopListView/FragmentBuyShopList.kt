@@ -1,7 +1,6 @@
 package br.com.devjmcn.shoplist.presenter.buyShopListView
 
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,6 +12,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -226,11 +226,15 @@ class FragmentBuyShopList : Fragment() {
 
             btnSave.setOnClickListener {
                 if (viewModelBuyShopList.isEmpty(edtAmountItem.text.toString())) {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.str_field_amount_invalid), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.str_field_amount_invalid), Toast.LENGTH_SHORT
+                    ).show()
                 } else if (viewModelBuyShopList.isEmpty(edtPriceItem.text.toString())) {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.str_item_price_field_invalid), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.str_item_price_field_invalid), Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     val amount = edtAmountItem.text.toString().toInt()
                     val price = edtPriceItem.text.toString().toBigDecimalFormat()
@@ -244,7 +248,7 @@ class FragmentBuyShopList : Fragment() {
                 }
             }
         }
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
         dialog.show()
     }
 
@@ -264,7 +268,7 @@ class FragmentBuyShopList : Fragment() {
                 dialog.dismiss()
             }
         }
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
         dialog.show()
     }
 
@@ -276,7 +280,7 @@ class FragmentBuyShopList : Fragment() {
             txtMsgSumValues.text = getString(R.string.str_by_default)
             btnOk.setOnClickListener { dialog.dismiss() }
         }
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
         dialog.show()
         viewModelBuyShopList.setPreferenceData(true)
     }
